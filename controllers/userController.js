@@ -12,7 +12,7 @@ const register = (req, res) => {
 }
 
 const sayHi = (req, res) => {
-    res.status(200).send('Hola mundo, estas autenticado!');
+    res.status(200).send('You are authenticated');
 }
 //exporting functions
 module.exports = {

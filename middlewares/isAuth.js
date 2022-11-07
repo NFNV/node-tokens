@@ -5,7 +5,7 @@ const isAuth = (req, res, next) => {
   //if you don't have a token, then you don' have access to the endpoint
 
   if (!req.headers.authorization) {
-    return res.status(401).send({ message: "No estas logueado!" })
+    return res.status(401).send({ message: "You are not logged in" })
   }
   //obtaining token from header. we split bearer & token. position 1 is the token
 

@@ -22,7 +22,7 @@ const decodeToken = (token) => {
     //"try" to protect token. catch for error
     //is it expired?
     if (payload.exp <= DateTime.now().toMillis()) {
-      return { message: "El token ha expirado!" }
+      return { message: "Token expired" }
     }
   } catch (error) {
     console.log(error)
