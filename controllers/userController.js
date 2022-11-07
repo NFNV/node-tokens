@@ -1,15 +1,22 @@
+const { authService } = require('../services');
+
 //login & register
+//fake login, it will never fail
 
-const login = (req, res) => {}
+const login = (req, res) => {
+   res.status(200).send({ token: authService.createToken() });
+}
 
-const register = () => {}
+const register = (req, res) => {
 
-const sayHi = (req, res) => { 
-    res.status(200).send('Hello, you are in!')
+}
+
+const sayHi = (req, res) => {
+    res.status(200).send('Hola mundo, estas autenticado!');
 }
 //exporting functions
-
 module.exports = {
-  login,
-  register,
+    login,
+    register,
+    sayHi,
 }
