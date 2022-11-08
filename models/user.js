@@ -14,5 +14,10 @@ const UserSchema = new Schema(
   }
 )
 
+//a middleware by mongoose. before saveing, exec:
+UserSchema.pre('save', (next) => {
+
+})
+
 //exporting with mongoose model
 module.exports = mongoose.model('User', UserSchema)
