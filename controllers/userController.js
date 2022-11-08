@@ -7,8 +7,27 @@ const User = require("../models/user")
 
 //fake login, it will never fail
 const login = (req, res) => {
-//   res.status(200).send({ token: authService.createToken() })
+  const { email, password } = req.body
 
+  //no email?
+  if (!email) res.status(400).send({ message: 'Field "email" required' })
+  //no password?
+  else if (!password)
+    res.status(400).send({ message: 'Field "password" required' })
+
+  User.findOne({ email }, (error, user) => {
+    if (error)
+      return res.status(500).send({ message: "Error creating user.", error })
+
+    //if user does not exist or there is no password or password is incorrect, throw error
+    if (!user || !password || !user.comparePassword(password))
+      return res
+        .status(401)
+        .send({ message: 'User or password are incorrect.', error })
+  })
+
+  //Its all good? login
+  res.status(200).send({ message: 'Successful login', token: authService.createToken() })
 }
 
 // will recieve the parameters via post
