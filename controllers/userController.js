@@ -7,7 +7,8 @@ const User = require("../models/user")
 
 //fake login, it will never fail
 const login = (req, res) => {
-  res.status(200).send({ token: authService.createToken() })
+//   res.status(200).send({ token: authService.createToken() })
+
 }
 
 // will recieve the parameters via post
