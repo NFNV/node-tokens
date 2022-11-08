@@ -23,11 +23,12 @@ const login = (req, res) => {
     if (!user || !password || !user.comparePassword(password))
       return res
         .status(401)
-        .send({ message: 'User or password are incorrect.', error })
+        .send({ message: "User or password are incorrect.", error })
   })
-
   //Its all good? login
-  res.status(200).send({ message: 'Successful login', token: authService.createToken() })
+  res
+    .status(200)
+    .send({ message: "Successful login", token: authService.createToken() })
 }
 
 // will recieve the parameters via post

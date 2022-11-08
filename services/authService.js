@@ -6,7 +6,7 @@ const { DateTime } = require("luxon")
 const createToken = () => {
   const payload = {
     iat: DateTime.now().toMillis(),
-    exp: DateTime.now().plus({ days: 14 }),
+    exp: DateTime.now().plus({ days: 14 }).toMillis(),
   }
   //transform this payload into the token actual form. process.env.JWT_SECRET will carry our password
   return jwt.encode(payload, process.env.JWT_SECRET)
