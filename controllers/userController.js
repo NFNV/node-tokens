@@ -1,13 +1,17 @@
-const { authService } = require("../services")
-
-//to use in register
-const User = require("../models/user")
+const { userService } = require("../services")
+const { validationResult } = require("express-validator")
 
 //login & register
 
 //fake login, it will never fail
-const login = (req, res) => {
+const login = async (req, res) => {
   const { email, password } = req.body
+
+  //is going to use the schema defined in routes, and it will make the validations that are inside, for email and for password, thats why we need req as argument 
+  const resultValidation = validationResult(req)
+
+  //has errors? then resultValidation will have some inside
+  const hasErrors = !resultValidation.isEmpty()
 
   //no email?
   if (!email) res.status(400).send({ message: 'Field "email" required' })
@@ -15,20 +19,30 @@ const login = (req, res) => {
   else if (!password)
     res.status(400).send({ message: 'Field "password" required' })
 
-  User.findOne({ email }, (error, user) => {
-    if (error)
-      return res.status(500).send({ message: "Error creating user.", error })
+  //traditional promise
+  // userService
+  //   .login()
+  //   //if it's ok, THEN with the result
+  //   .then((result) => {
+  //     return (
+  //       res
+  //         .status(result.status)
+  //         //send the whole object
+  //         .send(result)
+  //     )
+  //   })
+  //   .catch((error) => {
+  //     res
+  //     .status(result.status)
+  //     //send the whole object
+  //     .send(error)
+  //   })
 
-    //if user does not exist or there is no password or password is incorrect, throw error
-    if (!user || !password || !user.comparePassword(password))
-      return res
-        .status(401)
-        .send({ message: "User or password are incorrect.", error })
-  })
-  //Its all good? login
-  res
-    .status(200)
-    .send({ message: "Successful login", token: authService.createToken() })
+    //async/await. less performance, more legibility 
+    //userService.login(email, password) = req.body
+    const result = await userService.login(email, password).catch(error => error)
+    
+    return res.status(result.status).send(result)
 }
 
 // will recieve the parameters via post
