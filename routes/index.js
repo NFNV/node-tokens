@@ -5,7 +5,7 @@ const express = require("express")
 
 const routes = express.Router()
 
-const { userController } = require("../controllers")
+const { userController, productController } = require("../controllers")
 const { isAuth } = require("../middlewares")
 const { userSchema } = require("../controllers/schemas")
 
@@ -13,6 +13,7 @@ const { userSchema } = require("../controllers/schemas")
 //userSchema will execute when login
 routes.post("/login", userSchema, userController.login)
 routes.post("/register", userController.register)
+routes.post("/products", productController.createProduct)
 //get are protected, so we use isAuth here
 routes.get("/hi", isAuth, userController.sayHi)
 

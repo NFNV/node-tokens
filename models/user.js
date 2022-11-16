@@ -13,6 +13,8 @@ const UserSchema = new Schema(
     email: { type: String, unique: true, required: true, lowercase: true },
     password: { type: String, required: true },
     registerDate: { type: Date, default: Date.now() },
+    //products that user owns
+    products: [{ type: Schema.Types.ObjectId, ref: 'Product' },],
   }
 )
 
