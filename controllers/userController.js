@@ -13,6 +13,10 @@ const login = async (req, res) => {
   //has errors? then resultValidation will have some inside
   const hasErrors = !resultValidation.isEmpty()
 
+  if(hasErrors) {
+    return res.status(400).send(resultValidation)
+  }
+
   //no email?
   if (!email) res.status(400).send({ message: 'Field "email" required' })
   //no password?
