@@ -19,7 +19,7 @@ const decodeToken = (token) => {
     //opening & validating token. token > password
     //set value
     payload = jwt.decode(token, process.env.JWT_SECRET)
-    //"try" to protect token. catch for error
+    //"try" to protect token. "catch" for error
     //is it expired?
     if (payload.exp <= DateTime.now().toMillis()) {
       return { message: "Token expired" }
